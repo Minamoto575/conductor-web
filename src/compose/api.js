@@ -23,7 +23,7 @@ export default function api() {
         })
     }
 
-    const insertMember = (token, {address, birth, gender, phone, username, wxId}) => {
+    const insertMember = (token, {address, birth, gender, phone, username, wxId, password}) => {
         return axios({
             url: '/admin/user/member',
             method: 'post',
@@ -33,12 +33,13 @@ export default function api() {
                     gender,
                     phone,
                     username,
-                    wxId
+                    wxId,
+                    password
             }
         })
     }
 
-    const updateMember = (token, uid, {address, birth, gender, phone, username, wxId}) => {
+    const updateMember = (token, uid, {address, birth, gender, phone, username, wxId, password}) => {
         return axios({
             url: `/admin/user/member/${uid}`,
             method: 'post',
@@ -48,7 +49,8 @@ export default function api() {
                 gender,
                 phone,
                 username,
-                wxId
+                wxId,
+                password
             }
         })
     }
@@ -94,8 +96,7 @@ export default function api() {
             }
         })
     }
-
-
+    
     return {
         login,
         getAllMembers,
@@ -104,6 +105,6 @@ export default function api() {
         getBackgroundImages,
         updateMember,
         getTasks,
-        getTask
+        getTask,
     }
 }

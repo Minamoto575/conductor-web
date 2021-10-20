@@ -23,8 +23,10 @@ axios.interceptors.request.use(
         if (localStorage.getItem('Authorization')) {
             config.headers.Authorization = localStorage.getItem('Authorization');
         }
+        console.log(config);
         return config;
     },
+    
     error => {
         return Promise.reject(error);
     });
@@ -34,19 +36,19 @@ axios.interceptors.response.use(
         if (res.data.msg === '管理员未登录') {
             localStorage.setItem('Authorization', null)
             store.dispatch('setToken', {Authorization: null})
-
-
             router.push(`/login?ref=${encodeURI(window.location.pathname)}`)
             res.data.msg = '请登录后使用'
         }
-        return res
+        console.log(res);
+        return res;
     },
     error => {
         return Promise.reject(error)
     }
 )
-//axios.defaults.baseURL = 'https://api.fuchuang2.nowcent.cn'
-axios.defaults.baseURL = 'https://47.106.170.165:8433'
+// axios.defaults.baseURL = 'https://api.fuchuang2.nowcent.cn'
+// axios.defaults.baseURL = 'https://47.106.170.165:8433'
+axios.defaults.baseURL = 'http://localhost:8433'
 
 app.config.globalProperties.$axios = axios
 
