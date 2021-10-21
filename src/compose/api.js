@@ -13,17 +13,17 @@ export default function api() {
         })
     }
 
-    const getAllMembers = (token) => {
+    const getAllMembers = (sessionId) => {
         return axios({
             url: '/admin/user/member',
             method: 'get',
             headers: {
-                Authorization: token
+                JSESSIONID: sessionId
             }
         })
     }
 
-    const insertMember = (token, {address, birth, gender, phone, username, wxId, password}) => {
+    const insertMember = (sessionId, {address, birth, gender, phone, username, wxId, password}) => {
         return axios({
             url: '/admin/user/member',
             method: 'post',
@@ -35,11 +35,14 @@ export default function api() {
                     username,
                     wxId,
                     password
+            },
+            headers: {
+                JSESSIONID: sessionId
             }
         })
     }
 
-    const updateMember = (token, uid, {address, birth, gender, phone, username, wxId, password}) => {
+    const updateMember = (sessionId, uid, {address, birth, gender, phone, username, wxId, password}) => {
         return axios({
             url: `/admin/user/member/${uid}`,
             method: 'post',
@@ -51,17 +54,20 @@ export default function api() {
                 username,
                 wxId,
                 password
+            },
+            headers: {
+                JSESSIONID: sessionId
             }
         })
     }
 
 
-    const deleteMember = (token, uid) => {
+    const deleteMember = (sessionId, uid) => {
         return axios({
             url: `/admin/user/member/${uid}`,
             method: 'delete',
             headers: {
-                Authorization: token
+                JSESSIONID: sessionId
             }
         })
     }
@@ -73,12 +79,12 @@ export default function api() {
         })
     }
 
-    const getTasks = (token, {status, uid}) => {
+    const getTasks = (sessionId, {status, uid}) => {
         return axios({
             url: `/task`,
             method: 'get',
             headers: {
-                Authorization: token
+                JSESSIONID: sessionId
             },
             params: {
                 status,
@@ -87,12 +93,12 @@ export default function api() {
         })
     }
 
-    const getTask = (token, requestId) => {
+    const getTask = (sessionId, requestId) => {
         return axios({
             url: `/task/${requestId}`,
             method: 'get',
             headers: {
-                Authorization: token
+                JSESSIONID: sessionId
             }
         })
     }

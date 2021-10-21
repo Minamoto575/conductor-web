@@ -13,6 +13,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 import './assets/common.css'
+import Cookies from 'js-cookie'
 
 
 const app = createApp(App)
@@ -20,8 +21,8 @@ installElementPlus(app)
 
 axios.interceptors.request.use(
     config => {
-        if (localStorage.getItem('Authorization')) {
-            config.headers.Authorization = localStorage.getItem('Authorization');
+        if (Cookies.get("JSESSIONID")) {
+            config.headers.JSESSIONID = Cookies.get("JSESSIONID");
         }
         console.log(config);
         return config;
@@ -34,8 +35,8 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     res => {
         if (res.data.msg === '管理员未登录') {
-            localStorage.setItem('Authorization', null)
-            store.dispatch('setToken', {Authorization: null})
+            Cookies.set('JSESSIONID',null)
+            store.dispatch('setJSESSIONID', {JSESSIONID: null})
             router.push(`/login?ref=${encodeURI(window.location.pathname)}`)
             res.data.msg = '请登录后使用'
         }

@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     onDetailButtonClick: async function(index) {
-      await this.getTask(this.$store.Authorization, this.tableData[index].requestId)
+      await this.getTask(this.$store.JSESSIONID, this.tableData[index].requestId)
           .then(res => {
             console.log(res.data)
             this.detailDialog.photo = res.data.data.photo
@@ -121,7 +121,7 @@ export default {
 
     getAllTask: async function (params) {
       this.isTableLoading = true
-      await this.getTasks(this.$store.Authorization, params)
+      await this.getTasks(this.$store.JSESSIONID, params)
           .then(res => {
             console.log(res.data)
             if(res.data.code === 0) {

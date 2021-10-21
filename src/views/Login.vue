@@ -34,6 +34,7 @@
 
 <script>
 import api from "@/compose/api";
+import Cookies from 'js-cookie';
 
 
 export default {
@@ -64,21 +65,22 @@ export default {
     }
   },
   async mounted() {
-    if(localStorage.getItem('Authorization') !== null) {
-      this.$router.push('/')
-      return
-    }
-
+    //获取背景主题
     await this.getBackgroundImages().then(res => {
       if (res.data.code === 0) {
         this.urls = res.data.data
       }
     })
-
-
     let index = Math.floor(Math.random() * 6)
     this.backgroundImageUrl = `url("${this.urls[index]}")`
 
+    console.log('JSESSIONID');
+    if(Cookies.get('JSESSIONID') !== null) {
+      this.$router.push('/')
+      return
+    }
+
+    
     if(this.$route.query.ref){
       this.ref = this.$route.query.ref
       if(this.ref === '/login') {
@@ -91,12 +93,11 @@ export default {
       this.login(this.username, this.password)
       .then(res => {
         if(res.data.code === 0) {
-          this.$store.dispatch('setToken', {Authorization: res.data.data.token})
-
+          this.$store.dispatch('setJSESSIONID', {JSESSIONID: res.data.data.sessionId})
           this.$router.push(this.ref ? this.ref : '/')
         }
         else {
-          this.$store.dispatch('setToken', {Authorization: null})
+          this.$store.dispatch('setJSESSIONID', {JSESSIONID: null})
           this.$notify.error({
             title: '登录失败',
             message: res.data.msg

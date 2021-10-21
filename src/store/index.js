@@ -1,15 +1,21 @@
 import { createStore } from 'vuex'
+import Cookies from 'js-cookie'
+
+const JSESSIONID = "JSESSIONID"
 
 export default createStore({
   state: {
-    Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : ''
+    JSESSIONID: Cookies.get(JSESSIONID) ? Cookies.get(JSESSIONID) : ""
   },
   mutations: {
   },
   actions: {
-    setToken(state, user) {
-      state.Authorization = user.Authorization
-      localStorage.setItem('Authorization', user.Authorization)
+    setJSESSIONID(state,user){
+      state.JSESSIONID = user.JSESSIONID
+      Cookies.set(JSESSIONID,user.JSESSIONID)
+    },
+    getJSESSIONID(){
+      return Cookies.get(JSESSIONID)
     }
   },
   modules: {

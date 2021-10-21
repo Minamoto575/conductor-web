@@ -219,7 +219,7 @@ export default {
       })
     },
     getAllTasks: async function () {
-      await this.getTasks(this.$store.Authorization, {})
+      await this.getTasks(this.$store.JSESSIONID, {})
           .then(res => {
             if(res.data.code === 0) {
               this.tasks = res.data.data
@@ -228,19 +228,19 @@ export default {
     },
     getTaskCategory: async function () {
       let caseTypeCategory = [0, 0, 0]
-      await this.getTasks(this.$store.Authorization, {status: 0})
+      await this.getTasks(this.$store.JSESSIONID, {status: 0})
           .then(res => {
             if(res.data.code === 0) {
               caseTypeCategory[0] = res.data.data.length
             }
           })
-      await this.getTasks(this.$store.Authorization, {status: 1})
+      await this.getTasks(this.$store.JSESSIONID, {status: 1})
           .then(res => {
             if(res.data.code === 0) {
               caseTypeCategory[1] = res.data.data.length
             }
           })
-      await this.getTasks(this.$store.Authorization, {status: 2})
+      await this.getTasks(this.$store.JSESSIONID, {status: 2})
           .then(res => {
             if(res.data.code === 0) {
               caseTypeCategory[2] = res.data.data.length

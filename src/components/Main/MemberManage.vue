@@ -272,7 +272,7 @@ export default {
   },
   methods: {
     onCommitEditMemberButtonClick: function (index) {
-      this.updateMember(this.$store.Authorization, this.tableData[index].uid, {
+      this.updateMember(this.$store.JSESSIONID, this.tableData[index].uid, {
         ...this.editDialog.data,
       }).then((res) => {
         if (res.data.code === 0) {
@@ -308,7 +308,7 @@ export default {
         cancelButtonText: "取消",
         type: "info",
       }).then(() =>
-        this.deleteMember(this.$store.Authorization, member.uid)
+        this.deleteMember(this.$store.JSESSIONID, member.uid)
           .then((res) => {
             console.log(res);
             this.isTableLoading = false;
@@ -348,7 +348,7 @@ export default {
         if (valid) {
           this.isTableLoading = true;
           // console.log(this.insertDialog.data);
-          this.insertMember(this.$store.Authorization, {
+          this.insertMember(this.$store.JSESSIONID, {
             birth: new Date(this.insertDialog.data.birth).Format("yyyy-MM-dd"),
             ...this.insertDialog.data,
           })
@@ -394,7 +394,7 @@ export default {
     getMember: function () {
       this.isTableLoading = true;
 
-      this.getAllMembers(this.$store.Authorization)
+      this.getAllMembers(this.$store.JSESSIONID)
         .then((res) => {
           this.isTableLoading = false;
 

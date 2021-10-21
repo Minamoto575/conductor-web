@@ -5,6 +5,7 @@ import MemberManage from "@/components/Main/MemberManage";
 import MemberStatus from "@/components/Main/MemberStatus";
 import Case from "@/components/Main/Case";
 import Statistics from "@/components/Main/Statistics";
+import Cookies from 'js-cookie';
 
 const routes = [
   {
@@ -67,19 +68,17 @@ const router = createRouter({
 router.beforeEach(((to, from, next) => {
   document.title = '救援管理'
   console.log(to.path)
-  if(to.path === '/login') {
+  if (to.path === '/login') {
     next()
   }
   else {
-    let token = localStorage.getItem('Authorization')
-
-    if(token === null || token === '') {
+    let JSESSIONID = Cookies.get("JSESSIONID");
+    if (JSESSIONID === null || JSESSIONID === '' || JSESSIONID === undefined) {
       next(`/login?ref=${encodeURI(from.path)}`)
     }
     else {
       next()
     }
-    // next()
   }
 }))
 

@@ -52,7 +52,7 @@ export default {
     }
   },
   async mounted() {
-    await this.getAllMembers(this.$store.Authorization)
+    await this.getAllMembers(this.$store.JSESSIONID)
     .then(res => {
       console.log(res.data)
       if(res.data.code === 0) {
