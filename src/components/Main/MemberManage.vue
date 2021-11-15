@@ -82,7 +82,7 @@
 
     <el-table v-loading="isTableLoading" :data="tableData">
       <el-table-column label="队员姓名" prop="username"> </el-table-column>
-      <el-table-column label="性别" width="150" prop="gender">
+      <el-table-column label="性别" width="150" prop="gender" :formatter="genderFormat">
       </el-table-column>
       <el-table-column label="年龄" prop="age"> </el-table-column>
       <el-table-column label="微信号" prop="wxId"> </el-table-column>
@@ -271,6 +271,13 @@ export default {
     };
   },
   methods: {
+    genderFormat(row) {
+      if (row.gender == 1) {
+        return '男'
+      } else  {
+        return '女'
+      }
+    },
     onCommitEditMemberButtonClick: function (index) {
       this.updateMember(this.$store.JSESSIONID, this.tableData[index].uid, {
         ...this.editDialog.data,
